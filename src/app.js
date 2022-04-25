@@ -35,12 +35,18 @@ app.post('book',(req,res)=>{
             available: 'false'
         })
     }
+    if (checkResourceAvailable(reservation.resourceID)===false){
+        res.send({
+            available: 'false'
+        })
+    }
     if(checkSlotAvalable(reservation.date,reservation.start_time, reservation.end_time)===false){
         res.send({
             available: 'false'
         })
     }
     else{
+        listReservation.push(req.body);
         res.send({
             available: 'true'
         })
@@ -73,4 +79,7 @@ function checkSlotAvalable(date,start_time, end_time){
         }
     })
     return check;
+}
+function checkResourceAvailable(id_source){
+    return (id_source ==1337 ? true : false)
 }
